@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class SubscriptionsPerUser {
+public class Subscriptions {
     private Long subId;
     private User whoSubscribes;
     private User whoIsSubscribedTo;

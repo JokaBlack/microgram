@@ -1,14 +1,16 @@
-package com.example.homework50.main;
+package com.example.homework50.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class Publication {
+@Builder
+public class PublicationDto {
     private Long pubId;
     private String imgLink;
     private String description;
-    private User user;
+    private UserDto userDto;
     private LocalDateTime dateTimeOfPublication;
 }

@@ -1,13 +1,16 @@
 package com.example.homework50.dao;
 
+import com.example.homework50.main.Publication;
 import com.example.homework50.main.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
-import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Component
@@ -25,9 +28,13 @@ public class UserDao {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class));
     }
 
-    public User getUserByEmail(String email) {
+    public List<User> getUserByEmail(String email) {
         String sql = "select * from users where email = ?;";
-        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), email);
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), email);
+    }
+    public List<User> getUserById(Long id) {
+        String sql = "select * from users where user_id = ?;";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), id);
     }
 
     public boolean isContains(String email) {
@@ -39,4 +46,20 @@ public class UserDao {
             return false;
         }
     }
+
+    public void createUser(String nickname, String login, String email, String password) {
+        String sql = "insert into users (nick_name,login,email,password) values(?,?,?,?);";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(con -> {
+            PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
+            ps.setString(1, nickname);
+            ps.setString(2, login);
+            ps.setString(3, email);
+            ps.setString(4, password);
+            return ps;
+        }, keyHolder);
+    }
+
+
 }
