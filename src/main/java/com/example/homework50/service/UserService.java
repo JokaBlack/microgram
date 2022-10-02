@@ -41,4 +41,16 @@ public class UserService {
         return userDtos;
     }
 
+    public String register(String nickName, String login, String email, String password) {
+        if(!userDao.isContains(email) && !userDao.isContainsByLogin(login)){
+            userDao.createUser(nickName,login,email,password);
+            return "Successful registration";
+        }else {
+            return "try using a different email or username";
+        }
+    }
+
+    public boolean isSuccessfulAuth(String email, String password){
+        return  userDao.isSuccessfulAuth(email, password);
+    }
 }

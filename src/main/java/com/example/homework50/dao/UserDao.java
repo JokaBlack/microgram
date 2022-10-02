@@ -47,6 +47,16 @@ public class UserDao {
         }
     }
 
+    public boolean isContainsByLogin(String login) {
+        String sql = "select * from users where login = ?;";
+        try {
+            User user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), login);
+            return user != null;
+        }catch (EmptyResultDataAccessException ex){
+            return false;
+        }
+    }
+
     public void createUser(String nickname, String login, String email, String password) {
         String sql = "insert into users (nick_name,login,email,password) values(?,?,?,?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -59,6 +69,16 @@ public class UserDao {
             ps.setString(4, password);
             return ps;
         }, keyHolder);
+    }
+
+    public boolean isSuccessfulAuth(String email, String password){
+        String sql = "select * from users where email = ? and password = ?;";
+        try {
+            User user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), email, password);
+            return user != null;
+        }catch (EmptyResultDataAccessException e){
+            return false;
+        }
     }
 
 

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class LikeDao {
     private final JdbcTemplate jdbcTemplate;
     public Boolean isLikedDao(Long pubId, Long userId) {
-        String sql = "select * from likes where pub_id = ? and user_id = ?;";
+        String sql = "select * from likes where pub_id = ? and user_id  = ?;";
         try {
             Like like = jdbcTemplate.queryForObject(sql
                     , new BeanPropertyRowMapper<>(Like.class), pubId, userId);
