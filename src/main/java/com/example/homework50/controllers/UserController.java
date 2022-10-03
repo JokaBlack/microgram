@@ -43,7 +43,7 @@ public class UserController {
         return new ResponseEntity<>(userService.register(nickName, login, email, password), HttpStatus.OK);
     }
 
-    @PostMapping("/user/auth")
+    @PostMapping("/auth")
     public ResponseEntity<String> loginIn(@CookieValue(value = "userId", required = false, defaultValue = "0") String userId,
                                           @RequestParam String email, @RequestParam String password,
                                           HttpServletResponse response){

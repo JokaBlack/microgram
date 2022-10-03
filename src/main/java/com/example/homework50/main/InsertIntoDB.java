@@ -68,9 +68,9 @@ public class InsertIntoDB {
 
         likeDao.createLike(1,6,
                 LocalDateTime.of(2004,6,18, 8,25));
-        commentDao.createComment(1,3,
+        commentDao.createComment(1,"hey",
                 LocalDateTime.of(2004,6,18, 8,16));
-        commentDao.createComment(1,6,
+        commentDao.createComment(2,"Hello",
                 LocalDateTime.of(2004,6,18, 8,30));
     }
 

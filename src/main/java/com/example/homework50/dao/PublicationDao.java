@@ -3,7 +3,6 @@ package com.example.homework50.dao;
 import com.example.homework50.main.Publication;
 import com.example.homework50.main.PublicationRowMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -42,5 +41,10 @@ public class PublicationDao {
             ps.setObject(4, dateTime);
             return ps;
         }, keyHolder);
+    }
+
+    public int deletePublication(int userId, int pubId) {
+        String sql = "delete   from publications where pub_id = ?  and user_idfk = ?;";
+        return jdbcTemplate.update(sql,pubId, userId);
     }
 }
