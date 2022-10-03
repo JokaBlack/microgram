@@ -27,14 +27,14 @@ public class LikeDao {
         }
     }
 
-    public void createLike(int userId, int pubId, LocalDateTime dateTime) {
+    public void createLike(Long userId, Long pubId, LocalDateTime dateTime) {
         String sql = "insert into likes(user_id, pub_id, date_time) values(?,?,?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
-            ps.setInt(1, userId);
-            ps.setInt(2, pubId);
+            ps.setLong(1, userId);
+            ps.setLong(2, pubId);
             ps.setObject(3, dateTime);
             return ps;
         }, keyHolder);

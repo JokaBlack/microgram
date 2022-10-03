@@ -20,7 +20,6 @@ import java.util.List;
 public class PublicationService {
     private PublicationDao publicationDao;
 
-    private UserDao userDao;
     public List<PublicationDto> getUserPublications(Long userId) {
         return conversionToListDto(publicationDao.getUserPublications(userId));
     }

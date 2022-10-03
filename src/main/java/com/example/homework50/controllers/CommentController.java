@@ -25,7 +25,7 @@ public class CommentController {
     }
 
     @PostMapping("/comment/delete")
-    public ResponseEntity<?> addComment(@CookieValue(value = "userId", required = false, defaultValue = "0") String userId,
+    public ResponseEntity<String> addComment(@CookieValue(value = "userId", required = false, defaultValue = "0") String userId,
                                         @RequestParam int pubId , @RequestParam int commId){
         int id = Integer.parseInt(userId);
 

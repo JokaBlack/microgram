@@ -57,16 +57,16 @@ public class InsertIntoDB {
                 3,
                 LocalDateTime.of(2005,2,15, 11,16));
 
-        subscriptionsDao.createSubscriptions(1,
-                2,
+        subscriptionsDao.createSubscriptions(1L,
+                2L,
                 LocalDateTime.of(2004,6,18, 8,16));
-        subscriptionsDao.createSubscriptions(1,
-                3,
+        subscriptionsDao.createSubscriptions(1L,
+                3L,
                 LocalDateTime.of(2004,6,18, 8,20));
-        likeDao.createLike(1,3,
+        likeDao.createLike(1L,3L,
                 LocalDateTime.of(2004,6,18, 8,16));
 
-        likeDao.createLike(1,6,
+        likeDao.createLike(1L,6L,
                 LocalDateTime.of(2004,6,18, 8,25));
         commentDao.createComment(1,"hey",
                 LocalDateTime.of(2004,6,18, 8,16));
