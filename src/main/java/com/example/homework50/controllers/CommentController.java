@@ -1,11 +1,13 @@
 package com.example.homework50.controllers;
 
+import com.example.homework50.dto.UserDto;
 import com.example.homework50.service.CommentService;
+import com.example.homework50.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -13,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class CommentController {
     private CommentService commentService;
+    private UserService userService;
 
     @PostMapping("/comment/add")
-    public ResponseEntity<?> addComment(@CookieValue(value = "userId", required = false, defaultValue = "0") String userId,
+    public ResponseEntity<?> addComment(Authentication authentication,
                                         @RequestParam String commText, @RequestParam int pubId){
-        if(!"0".equals(userId)){
+        String email = authentication.getName();
+        if(email != null){
             return new ResponseEntity<>(commentService.addComment(pubId, commText), HttpStatus.OK);
         }
         return new ResponseEntity<>("You are not authorized", HttpStatus.OK);
@@ -25,12 +29,12 @@ public class CommentController {
     }
 
     @PostMapping("/comment/delete")
-    public ResponseEntity<String> addComment(@CookieValue(value = "userId", required = false, defaultValue = "0") String userId,
-                                        @RequestParam int pubId , @RequestParam int commId){
-        int id = Integer.parseInt(userId);
-
-        if(!"0".equals(userId)){
-            return new ResponseEntity<>(commentService.deleteComment(id, pubId , commId), HttpStatus.OK);
+    public ResponseEntity<String> deleteComment(Authentication authentication,
+                                                @RequestParam int pubId , @RequestParam int commId){
+        String email = authentication.getName();
+        if(email != null){
+            UserDto userDto = userService.getUserByEmail(email).get(0);
+            return new ResponseEntity<>(commentService.deleteComment(Integer.parseInt(String.valueOf(userDto.getUserId())), pubId , commId), HttpStatus.OK);
         }
         return new ResponseEntity<>("You are not authorized", HttpStatus.OK);
 

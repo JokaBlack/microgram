@@ -50,7 +50,4 @@ public class UserService {
         }
     }
 
-    public boolean isSuccessfulAuth(String email, String password){
-        return  userDao.isSuccessfulAuth(email, password);
-    }
 }

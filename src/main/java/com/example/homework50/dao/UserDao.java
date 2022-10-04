@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserDao {
     private final JdbcTemplate jdbcTemplate;
+    private final PasswordEncoder passwordEncoder;
 
     public List<User> getUsersByName(String name) {
         String sql = "select * from users where nick_name LIKE " + "'" + name + "%'";
@@ -60,26 +62,29 @@ public class UserDao {
     public void createUser(String nickname, String login, String email, String password) {
         String sql = "insert into users (nick_name,login,email,password) values(?,?,?,?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-
+        addAuth(email);
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, nickname);
             ps.setString(2, login);
             ps.setString(3, email);
-            ps.setString(4, password);
+            ps.setString(4, passwordEncoder.encode(password));
             return ps;
         }, keyHolder);
     }
 
-    public boolean isSuccessfulAuth(String email, String password){
-        String sql = "select * from users where email = ? and password = ?;";
-        try {
-            User user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), email, password);
-            return user != null;
-        }catch (EmptyResultDataAccessException e){
-            return false;
-        }
+    public void addAuth(String email){
+        String sql = "insert into authorities (username,authority) values(?,?);";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(con -> {
+            PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
+            ps.setString(1, email);
+            ps.setString(2, "ROLE_USER");
+            return ps;
+        }, keyHolder);
     }
+
 
 
 }
