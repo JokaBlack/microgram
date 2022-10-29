@@ -40,12 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/comment/**").fullyAuthenticated()
-                .antMatchers("/like/**").fullyAuthenticated()
-                .antMatchers("/publications/add").fullyAuthenticated()
-                .antMatchers("/publications/delete").fullyAuthenticated()
-                .antMatchers("/subscribe/add").fullyAuthenticated();
+//        http.authorizeRequests()
+//                .antMatchers("/comment/**").fullyAuthenticated()
+//                .antMatchers("/like/**").fullyAuthenticated()
+//                .antMatchers("/publications/add").fullyAuthenticated()
+//                .antMatchers("/publications/delete").fullyAuthenticated()
+//                .antMatchers("/subscribe/add").fullyAuthenticated();
 
         http.authorizeRequests()
                 .anyRequest()

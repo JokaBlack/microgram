@@ -44,17 +44,22 @@ public class PublicationController {
         return new ResponseEntity<>("You are not authorized", HttpStatus.OK);
     }
 
+//    @PostMapping("/publications/add")
+//    public ResponseEntity<?> addPublication(
+//            Authentication authentication,
+//            @PathVariable MultipartFile file, @RequestParam String description){
+//        String email = authentication.getName();
+//
+//        if(email != null){
+//            UserDto userDto = userService.getUserByEmail(email).get(0);
+//            return new ResponseEntity<>(publicationService.addPublication(Integer.parseInt(String.valueOf(userDto.getUserId())), file, description),HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>("You are not authorized", HttpStatus.OK);
+//    }
+    @CrossOrigin
     @PostMapping("/publications/add")
-    public ResponseEntity<?> addPublication(
-            Authentication authentication,
-            @PathVariable MultipartFile file, @RequestParam String description){
-        String email = authentication.getName();
-
-        if(email != null){
-            UserDto userDto = userService.getUserByEmail(email).get(0);
-            return new ResponseEntity<>(publicationService.addPublication(Integer.parseInt(String.valueOf(userDto.getUserId())), file, description),HttpStatus.OK);
-        }
-        return new ResponseEntity<>("You are not authorized", HttpStatus.OK);
+    public ResponseEntity<?> addPublication(@RequestParam MultipartFile image,@RequestParam  String description, @RequestParam int userId ){
+        return new ResponseEntity<>(publicationService.addPublication(image, description, userId), HttpStatus.OK);
     }
 
 
