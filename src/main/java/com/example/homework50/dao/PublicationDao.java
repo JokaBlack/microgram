@@ -4,7 +4,6 @@ import com.example.homework50.main.Publication;
 import com.example.homework50.main.PublicationRowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
@@ -51,5 +50,10 @@ public class PublicationDao {
                 "inner join users u on u.user_id = p.user_idfk " +
                 "where p.pub_id = (select MAX(pub_id) from publications where user_idfk = " + userId + ");";
         return jdbcTemplate.queryForObject(sql, new PublicationRowMapper());
+    }
+
+    public List<Publication> getAllPublicationDao() {
+        String sql = "select * from publications as p inner join users as u on u.user_id = p.user_idfk";
+        return jdbcTemplate.query(sql, new PublicationRowMapper());
     }
 }

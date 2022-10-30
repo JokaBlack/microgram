@@ -2,7 +2,6 @@ package com.example.homework50.controllers;
 
 import com.example.homework50.dto.PublicationDto;
 import com.example.homework50.dto.UserDto;
-import com.example.homework50.main.User;
 import com.example.homework50.service.PublicationService;
 import com.example.homework50.service.UserService;
 import lombok.AllArgsConstructor;
@@ -60,6 +59,11 @@ public class PublicationController {
     @PostMapping("/publications/add")
     public ResponseEntity<?> addPublication(@RequestParam MultipartFile image,@RequestParam  String description, @RequestParam int userId ){
         return new ResponseEntity<>(publicationService.addPublication(image, description, userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/publications/all")
+    public ResponseEntity<List<PublicationDto>> getAllPublications(){
+        return new ResponseEntity<>(publicationService.getAllPublicationsServ(), HttpStatus.OK);
     }
 
 

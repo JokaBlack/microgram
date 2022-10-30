@@ -105,4 +105,9 @@ public class PublicationService {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
+
+    public List<PublicationDto> getAllPublicationsServ(){
+        List<Publication> publications = publicationDao.getAllPublicationDao();
+        return conversionToListDto(publications);
+    }
 }

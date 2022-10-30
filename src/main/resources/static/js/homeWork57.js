@@ -1,3 +1,4 @@
+// const axios = require('axios').default;
 const BASE_URL = "http://localhost:8081"
 
 
@@ -161,7 +162,6 @@ function createPostElement(post) {
 
 
 // Task-4
-console.log(addPost(createPostElement(post)));
 
 function addPost(postElement) {
 
@@ -311,5 +311,22 @@ function sendGetComms(pubId) {
 function commBoxCleaner(pubId){
     document.getElementById("comm-box"+pubId).innerHTML = "";
 }
+
+//HomeWork-61
+
+function sendForGetAllPubs(){
+    axios.get(BASE_URL + '/publications/all')
+        .then((response) => {
+        const publications = response.data;
+        console.log(publications);
+        publications.forEach(e => {addPost(createPostElement(e))})
+
+    })
+        .catch(function (error){
+            console.log(error);
+        })
+}
+    sendForGetAllPubs();
+
 
 
