@@ -129,7 +129,7 @@ function createPostElement(post) {
             <p>userEmail: ${post.userDto.email}</p>
             <p>userName: ${post.userDto.nickName}</p>
             
-            <div class="modal fade" id="commentModal${post.pubId}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="commentModal${post.pubId}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -274,14 +274,17 @@ function sendPost(image, description, userId) {
 //Task-2
 function showHideComments(postId) {
     let comm = document.getElementById("commentModal" + postId);
+    console.log(comm)
     if (comm.style.display == "none") {
         sendGetComms(postId)
         comm.style.display = 'block';
         comm.style.opacity = '1';
+        console.log(comm)
     } else {
         commBoxCleaner(postId);
         comm.style.display = 'none';
         comm.style.opacity = '0';
+        console.log(comm)
     }
 
 }
@@ -318,7 +321,6 @@ function sendForGetAllPubs(){
     axios.get(BASE_URL + '/publications/all')
         .then((response) => {
         const publications = response.data;
-        console.log(publications);
         publications.forEach(e => {addPost(createPostElement(e))})
 
     })
@@ -328,5 +330,63 @@ function sendForGetAllPubs(){
 }
     sendForGetAllPubs();
 
+//HomeWork-62
 
+let reg = document.getElementById("registerModal");
+function hideShowRegModal(){
+    if (reg.style.display == "none") {
+        reg.style.display = 'block';
+        reg.style.opacity = '1';
+    } else {
+        reg.style.display = 'none';
+        reg.style.opacity = '0';
+    }
+}
+
+
+const regForm = document.getElementById("reg-form");
+regForm.addEventListener("submit", createRegRequest)
+
+function createRegRequest(event){
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    let object = {};
+
+    formData.forEach((value, key) => {
+        object[key] = value;
+    });
+    console.log(object);
+    sendRegData(formData);
+}
+
+function sendRegData(formData){
+    axios.post(BASE_URL + '/user/register', formData)
+        .then((response) => {
+            const regAnswer = response.data;
+            console.log(regAnswer);
+            regAnswerEvent(regAnswer);
+        })
+        .catch(function (error){
+            console.log(error);
+        })
+}
+
+function regAnswerEvent(regAnswer){
+    const regMsgTrue = document.getElementById("reg-text-true");
+    const regMsgFalse = document.getElementById("reg-text-false");
+    if(regAnswer === true){
+        regMsgTrue.style.display = "block";
+        setTimeout(function () {
+            regMsgTrue.style.display = "none"
+        }, 2000);
+    }else {
+        regMsgFalse.style.display = "block";
+        setTimeout(function () {
+            regMsgFalse.style.display = "none"
+        }, 2000);
+    }
+
+}
 

@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/user/register")
-    public ResponseEntity<String> register(@RequestParam String nickName, @RequestParam String login,
+    public ResponseEntity<Boolean> register(@RequestParam String nickName, @RequestParam String login,
                                            @RequestParam String email, @RequestParam String password){
         return new ResponseEntity<>(userService.register(nickName, login, email, password), HttpStatus.OK);
     }
