@@ -12,7 +12,13 @@
 </head>
 <body>
 <div class="splash-box container mt-5 mb-5 text-center">
-    <div class="splash bg-danger">This is Splash</div>
+    <div class="splash bg-danger mb-3">
+        <p>Hello</p>
+        <div id="userEmail">
+
+        </div>
+        <button onclick="logout()" id="logoutBtn" type="submit" class="btn btn-primary">Logout</button>
+    </div>
     <button id="hide">hide</button>
     <button id="show">show</button>
     <button type="button" class="btn btn-primary d-flex" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -122,6 +128,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="allposts" class="mt-5">
+
     </div>
 </div>
 

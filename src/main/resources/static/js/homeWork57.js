@@ -179,7 +179,7 @@ function addPost(postElement) {
         const pubId = object['pubId'];
         sendCommAdd(formData, pubId);
     }
-    document.getElementsByClassName("splash-box")[0].after(postElement);
+    document.getElementById("allposts").prepend(postElement);
 }
 
 
@@ -221,10 +221,7 @@ function addInBookmarks(postId) {
 
 //Task-4
 
-// let enterBtn = document.getElementById("btn");
 let loginModal = document.getElementById("loginModal");
-
-// enterBtn.addEventListener("click", hideShowSplash);
 function hideShowSplash() {
     if (loginModal.style.display == "none") {
         loginModal.style.display = 'block';
@@ -400,6 +397,9 @@ function regAnswerEvent(regAnswer){
 let userAuth = localStorage.getItem("user");
 if(userAuth == null){
     hideShowSplash();
+}else {
+    sendForGetAllPubs();
+    showUser();
 }
 
 //Task-1
@@ -456,6 +456,7 @@ function loginAnswerEvent(loginAnswer) {
             MsgTrue.style.display = "none"
             hideShowSplash();
             sendForGetAllPubs();
+            showUser();
         }, 2000);
     } else {
         MsgFalse.style.display = "block";
@@ -463,6 +464,33 @@ function loginAnswerEvent(loginAnswer) {
             MsgFalse.style.display = "none"
         }, 2000);
     }
+}
+
+//Task-2
+
+function showUser(){
+    let newElem = document.createElement('div');
+    const html = `<p>${restoreUser().email}</p>`
+    newElem.innerHTML = html;
+    document.getElementById("userEmail").prepend(newElem);
+}
+
+function logout(){
+    emailCleaner();
+    cleanLocalStorage();
+    postsCleaner();
+    hideShowSplash();
+}
+
+function emailCleaner(){
+    document.getElementById("userEmail").innerHTML = "";
+}
+function cleanLocalStorage(){
+    localStorage.clear();
+}
+
+function postsCleaner(){
+    document.getElementById("allposts").innerHTML = "";
 }
 
 
