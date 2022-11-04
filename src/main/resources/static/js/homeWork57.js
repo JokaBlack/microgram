@@ -1,4 +1,3 @@
-// const axios = require('axios').default;
 const BASE_URL = "http://localhost:8081"
 
 
@@ -222,11 +221,18 @@ function addInBookmarks(postId) {
 
 //Task-4
 
-let enterBtn = document.getElementById("btn");
-enterBtn.addEventListener("click", hideSplash);
+// let enterBtn = document.getElementById("btn");
+let loginModal = document.getElementById("loginModal");
 
-function hideSplash() {
-    document.getElementsByClassName("splash-auth")[0].hidden = true;
+// enterBtn.addEventListener("click", hideShowSplash);
+function hideShowSplash() {
+    if (loginModal.style.display == "none") {
+        loginModal.style.display = 'block';
+        loginModal.style.opacity = '1';
+    } else {
+        loginModal.style.display = 'none';
+        loginModal.style.opacity = '0';
+    }
 }
 
 
@@ -328,7 +334,6 @@ function sendForGetAllPubs(){
             console.log(error);
         })
 }
-    sendForGetAllPubs();
 
 //HomeWork-62
 
@@ -389,4 +394,75 @@ function regAnswerEvent(regAnswer){
     }
 
 }
+
+//HomeWork-63
+
+let userAuth = localStorage.getItem("user");
+if(userAuth == null){
+    hideShowSplash();
+}
+
+//Task-1
+
+const loginForm = document.getElementById("login-form");
+loginForm.addEventListener("submit", loginCheck);
+
+function loginCheck(event){
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    sendLoginCheck(formData);
+}
+
+
+
+
+function sendLoginCheck(formData){
+    axios.post(BASE_URL + '/user/auth', formData)
+        .then((response) => {
+            const loginAnswer = response.data;
+            console.log(loginAnswer);
+            if(loginAnswer === true){
+                const userFD = Object.fromEntries(formData);
+                saveUser(userFD);
+                loginAnswerEvent(loginAnswer);
+            }else {
+                loginAnswerEvent(loginAnswer);
+            }
+        })
+        .catch(function (error){
+            console.log(error);
+        })
+}
+
+function saveUser(userFD) {
+    const userAsJSON = JSON.stringify(userFD)
+    localStorage.setItem('user', userAsJSON);
+}
+
+function restoreUser() {
+    const userAsJSON = localStorage.getItem('user');
+    const user = JSON.parse(userAsJSON);
+    return user;
+}
+
+function loginAnswerEvent(loginAnswer) {
+    const MsgTrue = document.getElementById("login-text-true");
+    const MsgFalse = document.getElementById("login-text-false");
+    if (loginAnswer === true) {
+        MsgTrue.style.display = "block";
+        setTimeout(function () {
+            MsgTrue.style.display = "none"
+            hideShowSplash();
+            sendForGetAllPubs();
+        }, 2000);
+    } else {
+        MsgFalse.style.display = "block";
+        setTimeout(function () {
+            MsgFalse.style.display = "none"
+        }, 2000);
+    }
+}
+
 

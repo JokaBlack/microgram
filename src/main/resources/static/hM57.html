@@ -11,108 +11,123 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="splash-box container mt-5 mb-5 text-center">
-        <div class="splash bg-danger">This is Splash</div>
-        <button id="hide">hide</button>
-        <button id="show">show</button>
-        <button type="button" class="btn btn-primary d-flex" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            + post
-        </button>
+<div class="splash-box container mt-5 mb-5 text-center">
+    <div class="splash bg-danger">This is Splash</div>
+    <button id="hide">hide</button>
+    <button id="show">show</button>
+    <button type="button" class="btn btn-primary d-flex" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        + post
+    </button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Adding a post</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="post-add-form">
-                            <div class="mb-3">
-                                <label class="form-label">Your image</label>
-                                <input type="file" class="form-control" name="image">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Your description</label>
-                                <textarea type="text" class="form-control" name="description"></textarea>
-                            </div>
-                            <input type="hidden" name="user-id" value="1">
-
-                            <button type="submit" class="btn btn-primary" id="add-post-btn">Add Post</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adding a post</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-        </div>
-
-
-    <div class="container splash-auth">
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button id="btn" type="submit" class="btn btn-primary">Enter</button>
-        <button onclick="hideShowRegModal()" id="register-btn" type="submit" class="btn btn-primary">Registration</button>
-    </div>
-
-        <div class="modal fade mt-5" id="registerModal" tabindex="-1" style="display: none">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="regTitle">Registration</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div id="regAnswerMsg">
-                            <p id="reg-text-true" style="color: green; display: none">Successful registration</p>
-                            <p id="reg-text-false" style="color: red; display: none">Try using a different username or email</p>
+                <div class="modal-body">
+                    <form id="post-add-form">
+                        <div class="mb-3">
+                            <label class="form-label">Your image</label>
+                            <input type="file" class="form-control" name="image">
                         </div>
-                        <form id="reg-form">
-                            <div class="text-center">
-                                <div class="mt-2">
-                                    <label for="nickname" class="form-label">Nickname</label>
-                                    <input required = true class="form-control" type="text" name="nickName" id="nickname">
-                                </div>
-                                <div class="mt-2">
-                                    <label for="login" class="form-label">Login</label>
-                                    <input required = true class="form-control " type="text" name="login" id="login">
-                                </div>
-                                <div class="mt-2">
-                                    <label for="email" class="form-label">Email address</label>
-                                    <input required = true class="form-control" type="email" name="email" id="email">
-                                </div>
-                                <div class="mt-2">
-                                    <label for="pass" class="form-label">Password</label>
-                                    <input required = true class="form-control" type="password" name="password" id="pass">
-                                </div>
+                        <div class="mb-3">
+                            <label class="form-label">Your description</label>
+                            <textarea type="text" class="form-control" name="description"></textarea>
+                        </div>
+                        <input type="hidden" name="user-id" value="1">
 
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-3" id="reg-btn">Submit</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button onclick="hideShowRegModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
+                        <button type="submit" class="btn btn-primary" id="add-post-btn">Add Post</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="js/homeWork57.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="modal fade mt-5 " id="loginModal" tabindex="-1" style="display: none">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginTitle">Login</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="loginAnswerMsg">
+                        <p id="login-text-true" style="color: green; display: none">All its ok</p>
+                        <p id="login-text-false" style="color: red; display: none">Try again</p>
+                    </div>
+                    <form id="login-form">
+                        <div class="mb-3">
+                            <label for="emailAuth" class="form-label">Email address</label>
+                            <input required=true type="email" class="form-control" name="email" id="emailAuth">
+                        </div>
+                        <div class="mb-3">
+                            <label for="passAuth" class="form-label">Password</label>
+                            <input required=true type="password" class="form-control" name="password" id="passAuth">
+                        </div>
+                        <button id="btn" type="submit" class="btn btn-primary">Enter</button>
+                    </form>
+                    <button onclick="hideShowRegModal()" id="register-btn" type="submit" class="btn btn-primary mt-3">
+                        Registration
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade mt-5" id="registerModal" tabindex="-1" style="display: none">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="regTitle">Registration</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="regAnswerMsg">
+                        <p id="reg-text-true" style="color: green; display: none">Successful registration</p>
+                        <p id="reg-text-false" style="color: red; display: none">Try using a different username or
+                            email</p>
+                    </div>
+                    <form id="reg-form">
+                        <div class="text-center">
+                            <div class="mt-2">
+                                <label for="nickname" class="form-label">Nickname</label>
+                                <input required=true class="form-control" type="text" name="nickName" id="nickname">
+                            </div>
+                            <div class="mt-2">
+                                <label for="login" class="form-label">Login</label>
+                                <input required=true class="form-control " type="text" name="login" id="login">
+                            </div>
+                            <div class="mt-2">
+                                <label for="email" class="form-label">Email address</label>
+                                <input required=true class="form-control" type="email" name="email" id="email">
+                            </div>
+                            <div class="mt-2">
+                                <label for="pass" class="form-label">Password</label>
+                                <input required=true class="form-control" type="password" name="password" id="pass">
+                            </div>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3" id="reg-btn">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="hideShowRegModal()" type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="js/homeWork57.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -50,4 +50,17 @@ public class UserService {
         }
     }
 
+    public Boolean isSuccessfully(String email, String password) {
+        boolean emailContains = isContains(email);
+        boolean passwordContains;
+        if(emailContains){
+            passwordContains  = userDao.passCheck(email, password);
+            if(passwordContains){
+                return true;
+            }else {
+                return false;
+            }
+        }
+        return false;
+    }
 }
