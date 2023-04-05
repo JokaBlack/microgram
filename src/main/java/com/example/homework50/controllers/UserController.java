@@ -1,20 +1,14 @@
 package com.example.homework50.controllers;
 
 import com.example.homework50.dto.UserDto;
-import com.example.homework50.main.User;
 import com.example.homework50.service.UserService;
 import lombok.AllArgsConstructor;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import java.net.http.HttpResponse;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @AllArgsConstructor
@@ -39,10 +33,14 @@ public class UserController {
     }
 
     @PostMapping("/user/register")
-    public ResponseEntity<String> register(@RequestParam String nickName, @RequestParam String login,
+    public ResponseEntity<Boolean> register(@RequestParam String nickName, @RequestParam String login,
                                            @RequestParam String email, @RequestParam String password){
         return new ResponseEntity<>(userService.register(nickName, login, email, password), HttpStatus.OK);
     }
 
+    @PostMapping("/user/auth")
+    public ResponseEntity<Boolean> authenticationR(@RequestParam String email, @RequestParam String password){
+        return new ResponseEntity<>(userService.isSuccessfully(email, password), HttpStatus.OK);
+    }
 
 }

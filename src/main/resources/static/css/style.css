@@ -1,0 +1,36 @@
+.post-box {
+    max-width: 500px;
+}
+
+.post-img{
+    max-width: 500px;
+}
+.heart, .bookmark{
+    color: grey;
+}
+
+.img-box {
+    position: relative;
+}
+.img-heart {
+    color: red;
+    position: absolute;
+    top: 125px;
+    left: 200px;
+    font-size: 100px;
+    display: none;
+}
+
+.splash-box{
+    position: relative;
+}
+
+.splash-auth{
+    max-width: 500px;
+    background-color: rgb(182, 162, 162);
+    position: absolute;
+    z-index: 1;
+    left: 410px;
+    top: 200px;
+}
+

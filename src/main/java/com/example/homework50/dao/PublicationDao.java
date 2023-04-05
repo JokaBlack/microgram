@@ -4,8 +4,6 @@ import com.example.homework50.main.Publication;
 import com.example.homework50.main.PublicationRowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
@@ -31,7 +29,6 @@ public class PublicationDao {
 
     public void createPublication(String link, String description, int userId, LocalDateTime dateTime){
         String sql = "insert into publications (img_link, description, user_idfk,date_time) values(?,?,?,?);";
-        KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
@@ -40,11 +37,23 @@ public class PublicationDao {
             ps.setInt(3, userId);
             ps.setObject(4, dateTime);
             return ps;
-        }, keyHolder);
+        });
     }
 
     public int deletePublication(int userId, int pubId) {
         String sql = "delete   from publications where pub_id = ?  and user_idfk = ?;";
         return jdbcTemplate.update(sql,pubId, userId);
+    }
+
+    public Publication getLastPublication(int userId){
+        String sql = "select * from publications as p " +
+                "inner join users u on u.user_id = p.user_idfk " +
+                "where p.pub_id = (select MAX(pub_id) from publications where user_idfk = " + userId + ");";
+        return jdbcTemplate.queryForObject(sql, new PublicationRowMapper());
+    }
+
+    public List<Publication> getAllPublicationDao() {
+        String sql = "select * from publications as p inner join users as u on u.user_id = p.user_idfk";
+        return jdbcTemplate.query(sql, new PublicationRowMapper());
     }
 }

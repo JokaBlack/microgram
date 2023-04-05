@@ -2,7 +2,6 @@ package com.example.homework50.controllers;
 
 import com.example.homework50.dto.PublicationDto;
 import com.example.homework50.dto.UserDto;
-import com.example.homework50.main.User;
 import com.example.homework50.service.PublicationService;
 import com.example.homework50.service.UserService;
 import lombok.AllArgsConstructor;
@@ -44,17 +43,27 @@ public class PublicationController {
         return new ResponseEntity<>("You are not authorized", HttpStatus.OK);
     }
 
+//    @PostMapping("/publications/add")
+//    public ResponseEntity<?> addPublication(
+//            Authentication authentication,
+//            @PathVariable MultipartFile file, @RequestParam String description){
+//        String email = authentication.getName();
+//
+//        if(email != null){
+//            UserDto userDto = userService.getUserByEmail(email).get(0);
+//            return new ResponseEntity<>(publicationService.addPublication(Integer.parseInt(String.valueOf(userDto.getUserId())), file, description),HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>("You are not authorized", HttpStatus.OK);
+//    }
+    @CrossOrigin
     @PostMapping("/publications/add")
-    public ResponseEntity<?> addPublication(
-            Authentication authentication,
-            @PathVariable MultipartFile file, @RequestParam String description){
-        String email = authentication.getName();
+    public ResponseEntity<?> addPublication(@RequestParam MultipartFile image,@RequestParam  String description, @RequestParam int userId ){
+        return new ResponseEntity<>(publicationService.addPublication(image, description, userId), HttpStatus.OK);
+    }
 
-        if(email != null){
-            UserDto userDto = userService.getUserByEmail(email).get(0);
-            return new ResponseEntity<>(publicationService.addPublication(Integer.parseInt(String.valueOf(userDto.getUserId())), file, description),HttpStatus.OK);
-        }
-        return new ResponseEntity<>("You are not authorized", HttpStatus.OK);
+    @GetMapping("/publications/all")
+    public ResponseEntity<List<PublicationDto>> getAllPublications(){
+        return new ResponseEntity<>(publicationService.getAllPublicationsServ(), HttpStatus.OK);
     }
 
 

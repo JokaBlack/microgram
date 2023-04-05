@@ -11,4 +11,5 @@ public class Comment {
     private Publication publication;
     private String commText;
     private LocalDateTime dateTimeOfDescription;
+    private User user;
 }

@@ -41,13 +41,26 @@ public class UserService {
         return userDtos;
     }
 
-    public String register(String nickName, String login, String email, String password) {
+    public Boolean register(String nickName, String login, String email, String password) {
         if(!userDao.isContains(email) && !userDao.isContainsByLogin(login)){
             userDao.createUser(nickName,login,email,password);
-            return "Successful registration";
+            return true;
         }else {
-            return "try using a different email or username";
+            return false;
         }
     }
 
+    public Boolean isSuccessfully(String email, String password) {
+        boolean emailContains = isContains(email);
+        boolean passwordContains;
+        if(emailContains){
+            passwordContains  = userDao.passCheck(email, password);
+            if(passwordContains){
+                return true;
+            }else {
+                return false;
+            }
+        }
+        return false;
+    }
 }

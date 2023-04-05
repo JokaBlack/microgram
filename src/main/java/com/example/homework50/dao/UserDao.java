@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -85,6 +86,9 @@ public class UserDao {
         }, keyHolder);
     }
 
-
-
+    public boolean passCheck(String email, String password) {
+        String sql = "select password from users where email = ?;";
+        String encodedPass = jdbcTemplate.queryForObject(sql, new SingleColumnRowMapper<>(), email);
+        return passwordEncoder.matches(password, encodedPass);
+    }
 }
